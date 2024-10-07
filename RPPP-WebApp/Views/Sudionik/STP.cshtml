@@ -1,0 +1,153 @@
+﻿@model RPPP_WebApp.ViewModels.SudioniciViewModel
+
+@{
+
+    ViewBag.Title = "Sudionici";
+
+}
+
+<h2>Popis sudionika</h2>
+
+<pager page-info="@Model.PagingInfo" page-action="Index" page-title="Unesite željenu stranicu"
+       class="float-end">
+
+</pager>
+
+<h3>Sudionici</h3>
+
+<table class="table table-sm table-striped table-hover">
+
+    <thead>
+
+        <tr>
+
+            <th>
+
+                <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+
+                    IdSudionik
+
+                </a>
+
+            </th>
+
+            <th>
+
+                Email
+
+            </th>
+
+            <th>
+
+                Kontakt
+
+            </th>
+
+            <th>
+
+                AdresaUreda
+
+            </th>
+
+            <th>
+
+                NazivFirma
+
+            </th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+
+        @foreach (var sudionik in Model.Sudionici)
+
+        {
+
+            <tr>
+
+                <td class="text-left">@sudionik.IdSudionik</td>
+
+                <td class="text-left">@sudionik.Email</td>
+
+                <td class="text-left">@sudionik.Kontakt</td>
+
+                <td class="text-left">@sudionik.AdresaUreda</td>
+
+                <td class="text-left">@sudionik.IdFirmaNavigation.NazivFirma</td>
+
+            </tr>
+
+        }
+
+    </tbody>
+
+</table>
+
+<h3>Uloge</h3>
+
+<table class="table table-sm table-striped table-hover">
+
+    <thead>
+
+        <tr>
+
+            <th>
+
+                Projekt
+
+            </th>
+
+            <th>
+
+                Uloga
+
+            </th>
+
+            <th>
+
+                Vrsta uloge
+
+            </th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @foreach (var sudionik in Model.Sudionici)
+
+        {
+
+
+            @foreach (var uloga in sudionik.Sudjelujus)
+
+            {
+
+                <tr>
+
+                    <td class="text-left">@uloga.IdProjektNavigation?.NazivProjekta</td>
+
+                    <td class="text-left">@uloga.IdUlogaNavigation.OpisUloga</td>
+
+                    <td class="text-left">@uloga.IdUlogaNavigation.IdVrstaUlogaNavigation.Naziv</td>
+
+                </tr>
+
+            }
+            <a asp-action="MDSudionikExcel" asp-controller="Report" value="@sudionik.IdSudionik" asp-route-id="@sudionik.IdSudionik">Master-detail-sudionik (Excel)</a>
+        }
+
+    </tbody>
+
+</table>
+
+@section scripts {
+
+    <script src="~/js/pager.js" asp-append-version="true"></script>
+
+}

@@ -1,0 +1,35 @@
+﻿@model RPPP_WebApp.Models.Uloge
+
+@{
+    ViewBag.Title = "Ažuriranje uloge";
+}
+
+<form asp-route-id="@Model.IdUloga"
+      asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending"
+      method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="IdVrstaUloga" class="control-label"></label>
+        <select asp-for="IdVrstaUloga" asp-items="ViewBag.VrsteUloga" class="form-control"></select>
+        <span asp-validation-for="IdVrstaUloga" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="OpisUloga"></label>
+        <div><span asp-validation-for="OpisUloga" class="text-danger"></span></div>
+        <input asp-for="OpisUloga" class="form-control" />
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Spremi</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">Odustani</a>
+    </div>
+</form>
+
+@section scripts {
+    <partial name="IncludeValidation" />
+}

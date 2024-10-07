@@ -1,0 +1,20 @@
+<script>
+
+  @if (TempData[RPPP_WebApp.Constants.Message] != null)
+  {
+    bool error = false;
+    var obj = TempData[RPPP_WebApp.Constants.ErrorOccurred];
+    if (obj != null)
+    {
+      error = (bool)obj;
+    }
+    if (error)
+    {
+      <text>toastr.error(`@TempData[RPPP_WebApp.Constants.Message]`, 'Pogreška', {timeOut : 0, tapToDismiss : false, closeButton : true})</text>
+    }
+    else
+    {
+      <text>toastr.success(`@TempData[RPPP_WebApp.Constants.Message]`)</text>
+    }
+  }
+</script>

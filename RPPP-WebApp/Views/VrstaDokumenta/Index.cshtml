@@ -1,0 +1,42 @@
+﻿@model RPPP_WebApp.ViewModels.VrsteDokumenataViewModel
+@{
+    ViewBag.Title = "Vrsta Dokumenta";
+}
+
+<h2>Popis vrsta dokumenata</h2>
+
+<pager page-info="@Model.PagingInfo" page-action="Index" page-title="Unesite željenu stranicu"
+       class="float-end">
+</pager>
+
+<table class="table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                    Id vrsta dokumenta
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="2" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 2 ? !Model.PagingInfo.Ascending : true)">
+                    Nazviv vrste dokumenta
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vrstaDokumenta in Model.vrsteDokumenata)
+        {
+            <tr>
+                <td class="text-left">@vrstaDokumenta.IdVrstaDokument</td>
+                <td class="text-left">@vrstaDokumenta.NazivVrste</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+    <script src="~/js/pager.js" asp-append-version="true"></script>
+}
+

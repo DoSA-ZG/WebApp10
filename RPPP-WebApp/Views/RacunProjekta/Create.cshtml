@@ -1,0 +1,34 @@
+﻿@model RPPP_WebApp.ViewModels.RacunProjektaViewModel
+@{
+    ViewBag.Title = "Novi racun projekta";
+}
+
+<h2>Unos novog racuna projekta</h2>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="mb-3">
+        <label asp-for="Iban" class="form-label"></label>
+        <input asp-for="Iban" class="form-control" />
+        <div class="form-text"><span asp-validation-for="Iban" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="NazivProjekta" class="form-label"></label>
+        <select asp-for="NazivProjekta" class="form-control" asp-items="@(new SelectList(ViewBag.Projekti, "Value", "Text"))"></select>
+        <div class="form-text"><span asp-validation-for="NazivProjekta" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="StanjeRacuna" class="form-label"></label>
+        <input asp-for="StanjeRacuna" class="form-control" />
+        <div class="form-text"><span asp-validation-for="StanjeRacuna" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdProjekt" class="form-label"></label>
+        <select asp-for="IdProjekt" class="form-control" asp-items="@(new SelectList(ViewBag.Projekti, "Value", "Text"))"></select>
+        <div class="form-text"><span asp-validation-for="IdProjekt" class="text-danger"></span></div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+    </div>
+</form>

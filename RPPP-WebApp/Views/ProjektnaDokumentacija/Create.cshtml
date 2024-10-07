@@ -1,0 +1,43 @@
+@model RPPP_WebApp.Models.ProjektnaDokumentacija
+@{
+    ViewBag.Title = "Novi dokument";
+}
+
+<h2>Dodavanje novog dokumenta</h2>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="mb-3">
+        <label asp-for="IdDokument" class="form-label"></label>
+        <input asp-for="IdDokument" class="form-control" />
+        <div class="form-text"><span asp-validation-for="IdDokument" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="NazivDokumenta" class="form-label"></label>
+        <input asp-for="NazivDokumenta" class="form-control" />
+        <div class="form-text"><span asp-validation-for="NazivDokumenta" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdVrstaDokument" class="form-label"></label>
+        <select asp-for="IdVrstaDokument" class="form-control" asp-items="@(new SelectList(ViewBag.Dokumenti, "Value", "Text"))"></select>
+        <div class="form-text"><span asp-validation-for="IdVrstaDokument" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FormatDokumenta" class="form-label"></label>
+        <input asp-for="FormatDokumenta" class="form-control" />
+        <div class="form-text"><span asp-validation-for="FormatDokumenta" class="text-danger"></span></div>
+    </div>
+     <div class="mb-3">
+        <label asp-for="IdProjekt" class="form-label"></label>
+        <select asp-for="IdProjekt" class="form-control" asp-items="@(new SelectList(ViewBag.Projekti, "Value", "Text"))"></select>
+        <div class="form-text"><span asp-validation-for="IdProjekt" class="text-danger"></span></div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+    </div>
+</form>
+
+@section scripts {
+    <partial name="IncludeValidation" />
+}

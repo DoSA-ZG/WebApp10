@@ -1,0 +1,163 @@
+@model RPPP_WebApp.ViewModels.ProjektViewModel
+
+@{
+    ViewBag.Title = "Ažuriranje projekta";
+}
+
+<form id="dokument_form" method="post" asp-action="Edit"
+      asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending">
+    <input type="hidden" asp-for="IdProjekt" />
+    <div asp-validation-summary="All">
+    </div>
+    <div class="form-group">
+        <label asp-for="KraticaProjekta"></label>
+        <div><span asp-validation-for="KraticaProjekta" class="text-danger"></span></div>
+        <input asp-for="KraticaProjekta" class="form-control" value="@Model.KraticaProjekta"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="NazivProjekta"></label>
+        <div><span asp-validation-for="NazivProjekta" class="text-danger"></span></div>
+        <input asp-for="NazivProjekta" class="form-control" value="@Model.NazivProjekta"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="DatumPocetka"></label>
+        <div><span asp-validation-for="DatumPocetka" class="text-danger"></span></div>
+        <textarea asp-for="DatumPocetka" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="DatumZavrsetka"></label>
+        <div><span asp-validation-for="DatumZavrsetka" class="text-danger"></span></div>
+        <input asp-for="DatumZavrsetka" class="form-control" />
+    </div>
+     <div class="mb-3">
+        <label asp-for="IdVrstaProjekta" class="form-label"></label>
+        <input asp-for="IdVrstaProjekta" class="form-control"/>
+        <div class="form-text"><span asp-validation-for="IdVrstaProjekta" class="text-danger"></span></div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Spremi</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">Odustani</a>
+    </div>
+</form>
+<table>
+        @foreach(var dok in Model.ProjektnaDokumentacijas){
+        <tr>
+        <form asp-controller="ProjektnaDokumentacija" asp-action="Edit2"
+                asp-route-id="@dok.IdDokument"
+                asp-route-page="@ViewBag.Page"
+                asp-route-sort="@ViewBag.Sort"
+                asp-route-ascending="@ViewBag.Ascending"
+                method="post">
+        <div asp-validation-summary="All">
+        </div>
+            <td>
+        <div class="form-group">
+            <label asp-for="IdDokument"></label>
+            <div><span asp-validation-for="IdDokument" class="text-danger"></span></div>
+            <input asp-for="IdDokument" class="form-control" value="@dok.IdDokument" readonly/>
+        </div>
+            </td>
+            <td>
+        <div class="form-group">
+            <label asp-for="NazivDokumenta"></label>
+            <div><span asp-validation-for="NazivDokumenta" class="text-danger"></span></div>
+            <input asp-for="NazivDokumenta" class="form-control" value="@dok.NazivDokumenta"/>
+        </div>
+            </td>
+        <td>
+        <div class="mb-3">
+            <label asp-for="IdVrstaDokument" class="form-label"></label>
+            <select asp-for="IdVrstaDokument" class="form-control" asp-items="@(new SelectList(ViewBag.Dokumenti, "Value", "Text"))"></select>
+            <div class="form-text"><span asp-validation-for="IdVrstaDokument" class="text-danger" value="@dok.IdVrstaDokument"></span></div>
+        </div>
+            </td>
+        <td>
+        <div class="form-group">
+            <label asp-for="FormatDokumenta"></label>
+            <div><span asp-validation-for="FormatDokumenta" class="text-danger"></span></div>
+            <input asp-for="FormatDokumenta" class="form-control" value="@dok.FormatDokumenta"></input>
+        </div>
+            </td>
+        <td>
+        <div class="mb-3">
+            <label asp-for="IdProjekt" class="form-label"></label>
+            <input asp-for="IdProjekt" class="form-control" readonly/>
+            <div class="form-text"><span asp-validation-for="IdProjekt" class="text-danger" readonly></span></div>
+        </div>
+            </td>
+        <td>
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit">Spremi</button>
+                
+        </div>
+                </td>
+            </form>
+        <td>
+             <form asp-action="Delete2" method="post" asp-controller="ProjektnaDokumentacija"
+                      asp-route-id="@dok.IdDokument" value="@dok.IdDokument">
+                    <input type="hidden" name="IdDokument" value="@dok.IdDokument" />
+                        <button type="submit" class="btn btn-sm btn-danger delete" title="Obriši"><i class="fas fa-trash-alt">Obrisi</i></button>
+            </form>
+        </td>
+        </tr>}
+    <tr>
+    <form asp-action="Create2" method="post" asp-controller="ProjektnaDokumentacija">
+    <div asp-validation-summary="All"></div>
+        <td>
+    <div class="mb-3">
+        <label asp-for="IdDokument" class="form-label"></label>
+        <input asp-for="IdDokument" class="form-control" />
+        <div class="form-text"><span asp-validation-for="IdDokument" class="text-danger"></span></div>
+    </div>
+            </td>
+        <td>
+    <div class="mb-3">
+        <label asp-for="NazivDokumenta" class="form-label"></label>
+        <input asp-for="NazivDokumenta" class="form-control" />
+        <div class="form-text"><span asp-validation-for="NazivDokumenta" class="text-danger"></span></div>
+    </div>
+            </td>
+        <td>
+    <div class="mb-3">
+        <label asp-for="IdVrstaDokument" class="form-label"></label>
+        <select asp-for="IdVrstaDokument" class="form-control" asp-items="@(new SelectList(ViewBag.Dokumenti, "Value", "Text"))"></select>
+        <div class="form-text"><span asp-validation-for="IdVrstaDokument" class="text-danger"></span></div>
+    </div>
+            </td>
+        <td>
+    <div class="mb-3">
+        <label asp-for="FormatDokumenta" class="form-label"></label>
+        <input asp-for="FormatDokumenta" class="form-control" />
+        <div class="form-text"><span asp-validation-for="FormatDokumenta" class="text-danger"></span></div>
+    </div>
+            </td>
+        <td>
+     <div class="mb-3">
+        <label asp-for="IdProjekt" class="form-label"></label>
+        <input asp-for="IdProjekt" class="form-control" readonly></input>
+        <div class="form-text"><span asp-validation-for="IdProjekt" class="text-danger" readonly></span></div>
+    </div>
+            </td>
+        <td>
+    <div class="text-center">
+        <td>
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        </td>
+    </div>
+            </td>
+</form>
+        </tr>
+
+
+
+</table>
+
+@section scripts {
+    <partial name="IncludeValidation" />
+}

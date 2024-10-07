@@ -1,0 +1,49 @@
+@model RPPP_WebApp.ViewModels.PlanProjekataViewModel
+@{
+    ViewBag.Title = "Novi plan projekta";
+}
+
+<h2>Unos novog plana projekta</h2>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="mb-3">
+        <label asp-for="IdPlanProjekta" class="form-label"></label>
+        <input asp-for="IdPlanProjekta" class="form-control" />
+        <div class="form-text"><span asp-validation-for="IdPlanProjekta" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="PlaniraniPocetakZadatka" class="form-label"></label>
+        <input asp-for="PlaniraniPocetakZadatka" class="form-control" />
+        <div class="form-text"><span asp-validation-for="PlaniraniPocetakZadatka" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="StvarniPocetakZadatka" class="form-label"></label>
+        <input asp-for="StvarniPocetakZadatka" class="form-control" />
+        <div class="form-text"><span asp-validation-for="StvarniPocetakZadatka" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="PlaniraniZavrsetakZadatka" class="form-label"></label>
+        <input asp-for="PlaniraniZavrsetakZadatka" class="form-control" />
+        <div class="form-text"><span asp-validation-for="PlaniraniZavrsetakZadatka" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="StvarniZavrsetakZadatka" class="form-label"></label>
+        <input asp-for="StvarniZavrsetakZadatka" class="form-control" />
+        <div class="form-text"><span asp-validation-for="StvarniZavrsetakZadatka" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdProjekt" class="form-label"></label>
+        <select asp-for="IdProjekt" class="form-control" asp-items="@(new SelectList(ViewBag.Projekt, "Value", "Text"))"></select>
+        <div class="form-text"><span asp-validation-for="IdProjekt" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdVoditelj" class="form-label"></label>
+        <select asp-for="IdVoditelj" class="form-control" asp-items="@(new SelectList(ViewBag.VoditeljProjekta, "Value", "Text"))"></select>
+        <div class="form-text"><span asp-validation-for="IdVoditelj" class="text-danger"></span></div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+    </div>
+</form>

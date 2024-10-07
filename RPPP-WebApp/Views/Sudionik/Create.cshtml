@@ -1,0 +1,50 @@
+@model RPPP_WebApp.ViewModels.SudionikViewModel
+@{
+    ViewBag.Title = "Novi sudionik";
+}
+
+<h2>Unos novog sudionika</h2>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="mb-3">
+        <label asp-for="IdSudionik" class="form-label"></label>
+        <input asp-for="IdSudionik" class="form-control" />
+        <div class="form-text"><span asp-validation-for="IdSudionik" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <div class="form-text"><span asp-validation-for="Email" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Kontakt" class="form-label"></label>
+        <input asp-for="Kontakt" class="form-control" />
+        <div class="form-text"><span asp-validation-for="Kontakt" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AdresaUreda" class="form-label"></label>
+        <input asp-for="AdresaUreda" class="form-control" />
+        <div class="form-text"><span asp-validation-for="AdresaUreda" class="text-danger"></span></div>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdFirma" class="control-label"></label>
+        <select asp-for="IdFirma" asp-items="ViewBag.PripadnostFirmi" class="form-control"></select>
+        <span asp-validation-for="IdFirma" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdProjekt" class="control-label"></label>
+        <select asp-for="IdProjekt" asp-items="ViewBag.Projekt" class="form-control"></select>
+        <span asp-validation-for="IdProjekt" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdUloga" class="control-label"></label>
+        <select asp-for="IdUloga" asp-items="ViewBag.Uloga" class="form-control"></select>
+        <span asp-validation-for="IdUloga" class="text-danger"></span>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+    </div>
+</form>
+

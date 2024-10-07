@@ -1,0 +1,48 @@
+﻿@model RPPP_WebApp.Models.Transakcija;
+@{
+    ViewBag.Title = "Nova transakcija";
+}
+
+<h2>Unos nove transakcije</h2>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="mb-3">
+        <label asp-for="IdTransakcija" class="form-label"></label>
+        <input asp-for="IdTransakcija" class="form-control" />
+        <div class="form-text"><span asp-validation-for="IdTransakcija" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Ibanposiljatelja" class="form-label"></label>
+        <input asp-for="Ibanposiljatelja" class="form-control" />
+        <div class="form-text"><span asp-validation-for="Ibanposiljatelja" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Ibanprimatelja" class="form-label"></label>
+        <input asp-for="Ibanprimatelja" class="form-control" />
+        <div class="form-text"><span asp-validation-for="Ibanprimatelja" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="OpisTransakcije" class="form-label"></label>
+        <input asp-for="OpisTransakcije" class="form-control" />
+        <div class="form-text"><span asp-validation-for="OpisTransakcije" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Iznos" class="form-label"></label>
+        <input asp-for="Iznos" class="form-control" />
+        <div class="form-text"><span asp-validation-for="Iznos" class="text-danger"></span></div>
+    </div>
+    <div class="form-group">
+
+        <label asp-for="IdVrstaTransakcije" class="control-label"></label>
+
+        <select asp-for="IdVrstaTransakcije" asp-items="ViewBag.vrstaTransakcije" class="form-control"></select>
+
+        <span asp-validation-for="IdVrstaTransakcije" class="text-danger"></span>
+
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+    </div>
+</form>

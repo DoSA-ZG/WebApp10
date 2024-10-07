@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ZadatakViewModel>
+
+<table class="table table-sm table-striped table-hover" id="table-zadaci">
+    <thead>
+        <tr>
+            <th>IdZadatak</th>
+            <th>Status</th>
+            <th>Aktivan</th>
+            <th>Opis</th>
+            <th>IdZahtjev</th>
+            <th>NositeljZadatka</th>
+            <th>IdPrioritetZadatka</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var zadatak in Model)
+        {
+            <tr>
+                <td class="text-center">
+                    <input type="hidden" name="Zadaci.Index" value="@zadatak.IdZadatak" />
+                    <input name="Zadaci[@zadatak.IdZadatak].IdZadatak" value="@zadatak.IdZadatak" readonly />
+                </td>
+                <td class="text-left"><input name="Zadaci[@zadatak.IdZadatak].Status" value="@zadatak.Status" /></td>
+                <td class="text-center"><input name="Zadaci[@zadatak.IdZadatak].Aktivan" value="@zadatak.Aktivan" /></td>
+                <td class="text-center"><input name="Zadaci[@zadatak.IdZadatak].Opis" value="@zadatak.Opis" /></td>
+                <td class="text-center"><input name="Zadaci[@zadatak.IdZadatak].IdZahtjev" value="@zadatak.IdZahtjev" /></td>
+                <td class="text-center"><input name="Zadaci[@zadatak.IdZadatak].NositeljZadatka" value="@zadatak.NositeljZadatka" /></td>
+                <td class="text-center"><input name="Zadaci[@zadatak.IdZadatak].IdPrioritetZadatka" value="@zadatak.IdPrioritetZadatka" /></td>
+                <td class="btn-group">
+                    <form asp-action="Delete2" method="post" asp-controller="Zadatak"
+                          asp-route-id="@zadatak.IdZadatak">
+                        <input type="hidden" name="IdZadatak" value="@zadatak.IdZadatak" />
+                        <button type="submit" class="btn btn-sm btn-danger delete" title="Obriši"><i class="fas fa-trash-alt">Obrisi</i></button>
+                    </form>
+                </td>
+            </tr>
+        }
+
+        <tr>
+            <td><input id="zadatak-id" type="text"  /></td>
+            <td><input id="zadatak-status" type="text"  /></td>
+            <td><input id="zadatak-aktivan" type="text"  /></td>
+            <td class="text-center col-sm-1"><input id="zadatak-opis" type="text"  /></td>
+            <td class="text-center col-sm-1"><input id="zadatak-idZahtjev" type="text"  /></td>
+            <td class="text-right col-sm-2"><input id="zadatak-nositelj" type="text"  /></td>
+            <td class="text-right col-sm-2"><input id="zadatak-idPrioritet" type="text" /></td>
+            <td class="text-left" colspan="3">
+                <button id="zadatak-dodaj" class="btn btn-sm btn-secondary" title="Dodaj"><i class="fas fa-plus">Dodaj</i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>

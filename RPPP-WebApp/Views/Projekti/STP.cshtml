@@ -1,0 +1,98 @@
+@model RPPP_WebApp.ViewModels.ProjektiViewModel
+
+@{
+    ViewBag.Title = "Projekt";
+}
+
+<h2>Popis dokumenata projekta</h2>
+
+<pager page-info="@Model.PagingInfo" page-action="Index" page-title="Unesite željenu stranicu"
+       class="float-end">
+</pager>
+
+<h3>Projekt</h3>
+
+<table class="table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                    IdProjekta
+                </a>
+            </th>
+            <th>
+                Kratica Projekta
+            </th>
+            <th>
+                Naziv projekta
+            </th>
+            <th>
+                Datum pocetka
+            </th>
+            <th>
+                Datum zavrsetka
+            </th>
+            <th>
+                Vrsta projekta
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var projekt in Model.projekti)
+        {
+            <tr>
+                <td class="text-center">@projekt.IdProjekt</td>
+                <td class="text-center">@projekt.KraticaProjekta</td>
+                <td class="text-left">@projekt.NazivProjekta</td>
+                <td class="text-left">@projekt.DatumPocetka</td>
+                <td class="text-left">@projekt.DatumZavrsetka</td>
+               <td class="text-center">@projekt.IdVrstaProjektaNavigation.NazivVrsteProjekta</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h3>Dokumenti</h3>
+<table class="table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                IdDokument
+            </th>
+            <th>
+                Naziv dokumenta
+            </th>
+            <th>
+                Vrsta dokumenta
+            </th>
+            <th>
+                Format
+            </th>
+            <th>
+                Id projekta
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var projekt in Model.projekti)
+        {
+         @foreach (var dokument in projekt.ProjektnaDokumentacijas)
+        {
+            <tr>
+                <td class="text-left">@dokument.IdDokument</td>
+                <td class="text-left">@dokument.NazivDokumenta</td>
+                <td class="text-left">@dokument.IdVrstaDokument</td>
+                <td class="text-left">@dokument.FormatDokumenta</td>       
+                    <td class="text-left">@dokument.IdProjektNavigation.NazivProjekta</td>
+                </tr>
+        }
+        <a asp-action="ProjektDokumentExcel" asp-controller="Report" value="@projekt.IdProjekt" asp-route-id="@projekt.IdProjekt">Popis svih dokumenata projekta (Excel)</a>
+        }
+        
+
+    </tbody>
+</table>
+
+@section scripts {
+    <script src="~/js/pager.js" asp-append-version="true"></script>
+}

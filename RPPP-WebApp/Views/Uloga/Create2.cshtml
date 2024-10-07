@@ -1,0 +1,29 @@
+﻿@model RPPP_WebApp.Models.Uloge
+@{
+    ViewBag.Title = "Nova uloga";
+}
+
+<h2>Unos nove uloge</h2>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="mb-3">
+        <label asp-for="IdUloga" class="form-label"></label>
+        <input asp-for="IdUloga" class="form-control" />
+        <div class="form-text"><span asp-validation-for="IdUloga" class="text-danger"></span></div>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdVrstaUloga" class="control-label"></label>
+        <select asp-for="IdVrstaUloga" asp-items="ViewBag.VrsteUloga" class="form-control"></select>
+        <span asp-validation-for="IdVrstaUloga" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="OpisUloga" class="form-label"></label>
+        <input asp-for="OpisUloga" class="form-control" />
+        <div class="form-text"><span asp-validation-for="OpisUloga" class="text-danger"></span></div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+    </div>
+</form>

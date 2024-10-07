@@ -1,0 +1,137 @@
+﻿@model RPPP_WebApp.ViewModels.ZahtjeviViewModel
+
+@{
+    ViewBag.Title = "Zahtjevi";
+}
+
+<h2>Popis zahtjeva</h2>
+
+<pager page-info="@Model.PagingInfo" page-action="Index" page-title="Unesite željenu stranicu"
+       class="float-end">
+</pager>
+
+<h3>Zahtjevi</h3>
+<table class="table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                    IdZahtjev
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="2" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 2 ? !Model.PagingInfo.Ascending : true)">
+                    Opis
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="3" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 3 ? !Model.PagingInfo.Ascending : true)">
+                    Prioritet
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="4" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 4 ? !Model.PagingInfo.Ascending : true)">
+                    Vrsta
+                </a>
+            </th>
+            <th>
+                NazivProjekta
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var zahtjev in Model.Zahtjev)
+        {
+            <tr>
+                <td class="text-center">@zahtjev.IdZahtjev</td>
+                <td class="text-center">@zahtjev.Opis</td>
+                <td class="text-center">@zahtjev.Prioritet</td>
+                <td class="text-center">@zahtjev.Vrsta</td>
+                <td class="text-center">
+                    @{
+                        var projektIme = zahtjev.IdProjekts.Select(z => z.NazivProjekta);
+                        var projektIme1 = string.Join(", ", projektIme);
+                    }
+
+                    @projektIme1
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Zadaci</h3>
+<table class="table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                IdZadatak
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Aktivan
+            </th>
+            <th>
+                Opis
+            </th>
+            <th>
+                Opis zahtjeva
+            </th>
+
+            <th>
+                NositeljZadatka
+            </th>
+            <th>
+                RazinaPrioriteta
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var zahtjev in Model.Zahtjev)
+        {
+            @foreach (var zadaci in zahtjev.Zadacis)
+            {
+                <tr>
+                    <td class="text-center">@zadaci.IdZadatak</td>
+                    <td class="text-center">@zadaci.Status</td>
+                    <td class="text-center">@zadaci.Aktivan</td>
+                    <td class="text-center">@zadaci.Opis</td>
+                    <td class="text-center">@zadaci.IdZahtjevNavigation.Opis</td>
+                    <td class="text-center">@zadaci.NositeljZadatka</td>
+                    <td class="text-center">
+                        @{
+                            string prioritetTekst;
+                            switch (zadaci.IdPrioritetZadatka)
+                            {
+                                case 1:
+                                    prioritetTekst = "WouldHave";
+                                    break;
+                                case 2:
+                                    prioritetTekst = "MustHave";
+                                    break;
+                                case 3:
+                                    prioritetTekst = "ShouldHave";
+                                    break;
+                                default:
+                                    prioritetTekst = "Nepoznato";
+                                    break;
+                            }
+                        }
+                        @prioritetTekst
+                    </td>
+                </tr>
+            }
+            <a asp-action="MDZahtjevExcel" asp-controller="Report" asp-route-id="@zahtjev.IdZahtjev">Master-detail (Excel)</a>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+    <script src="~/js/pager.js" asp-append-version="true"></script>
+}

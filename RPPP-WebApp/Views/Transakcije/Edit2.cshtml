@@ -1,0 +1,95 @@
+﻿@model RPPP_WebApp.Models.Transakcija
+
+@{
+
+    ViewBag.Title = "Ažuriranje transakcije";
+
+}
+
+<form asp-route-id="@Model.IdTransakcija"
+      asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending"
+      method="post">
+
+    <div asp-validation-summary="All"></div>
+
+    <div class="form-group">
+
+        <label asp-for="IdTransakcija"></label>
+
+        <div><span asp-validation-for="IdTransakcija" class="text-danger"></span></div>
+
+        <input asp-for="IdTransakcija" class="form-control" />
+
+    </div>
+    <div class="form-group">
+
+        <label asp-for="Ibanposiljatelja"></label>
+
+        <div><span asp-validation-for="Ibanposiljatelja" class="text-danger"></span></div>
+
+        <input asp-for="Ibanposiljatelja" class="form-control" />
+
+    </div>
+
+    <div class="form-group">
+
+        <label asp-for="Ibanprimatelja"></label>
+
+        <div><span asp-validation-for="Ibanprimatelja" class="text-danger"></span></div>
+
+        <input asp-for="Ibanprimatelja" class="form-control" />
+
+    </div>
+
+    <div class="form-group">
+
+        <label asp-for="OpisTransakcije"></label>
+
+        <div><span asp-validation-for="OpisTransakcije" class="text-danger"></span></div>
+
+        <textarea asp-for="OpisTransakcije" class="form-control"></textarea>
+
+    </div>
+
+    <div class="form-group">
+
+        <label asp-for="Iznos"></label>
+
+        <div><span asp-validation-for="Iznos" class="text-danger"></span></div>
+
+        <input asp-for="Iznos" class="form-control" />
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label asp-for="IdVrstaTransakcije" class="control-label"></label>
+
+        <select asp-for="IdVrstaTransakcije" asp-items="ViewBag.vrstaTransakcije" class="form-control"></select>
+
+        <span asp-validation-for="IdVrstaTransakcije" class="text-danger"></span>
+
+    </div>
+
+    <div class="text-center">
+
+        <button class="btn btn-primary" type="submit">Spremi</button>
+
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">Odustani</a>
+
+    </div>
+
+</form>
+
+@section scripts {
+
+    <partial name="IncludeValidation" />
+
+}

@@ -1,0 +1,180 @@
+﻿<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" asp-action="Index" asp-controller="Home">RPPP Homework - Group 10</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Index" asp-controller="Home">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Student 29
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="nav-link
+                            @(ViewBag.Controller == "Zahtjev" ? "active": "")"
+                               asp-action="Index" asp-controller="Zahtjev">
+                                Zahtjev(STP)
+                            </a>
+                        </li>
+                        <a class="nav-link
+                            @(ViewBag.Controller == "Zadatak" ? "active": "")"
+                           asp-action="Index" asp-controller="Zadatak">
+                            Zadaci(JTP)
+                        </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="nav-link
+                    @(ViewBag.Controller == "PrioritetZadataka" ? "active": "")"
+                       asp-action="Index" asp-controller="PrioritetZadataka">
+                        Prioritet Zadataka
+                    </a>
+                </li>
+            </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Student 39
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                        <a class="nav-link
+                        @(ViewBag.Controller == "RacunProjekta" ? "active": "")"
+                           asp-action="Index" asp-controller="RacunProjekta">
+                            RacunProjekta(STP)
+                        </a>
+                    </li>
+                    <a class="nav-link
+                        @(ViewBag.Controller == "Transakcije" ? "active": "")"
+                       asp-action="Index" asp-controller="Transakcije">
+                        Transakcija(JTP)
+                    </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+                <a class="nav-link
+                    @(ViewBag.Controller == "VrstaTransakcije" ? "active": "")"
+                   asp-action="Index" asp-controller="VrstaTransakcije">
+                    Vrsta Transakcije
+                </a>
+            </li>
+            </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Student 40
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                        <a class="nav-link
+                               @(ViewBag.Controller == "Projekti" ? "active": "")"
+                           asp-action="Index" asp-controller="Projekti">
+                            Projekti(STP)
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link
+                               @(ViewBag.Controller == "ProjektnaDokumentacija" ? "active": "")"
+                           asp-action="Index" asp-controller="ProjektnaDokumentacija">
+                            Projektna dokumnetacija(JTP)
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="nav-link
+                               @(ViewBag.Controller == "VrstaProjekta" ? "active": "")"
+                           asp-action="Index" asp-controller="VrstaProjekta">
+                            Vrsta projekata
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link
+                               @(ViewBag.Controller == "VrstaDokumenta" ? "active": "")"
+                           asp-action="Index" asp-controller="VrstaDokumenta">
+                            Vrsta dokumenta
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Student 38
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                        <a class="nav-link
+@(ViewBag.Controller == "PlanProjekta" ? "active": "")"
+                           asp-action="Index" asp-controller="PlanProjekta">
+                            Plan Projekta(STP)
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link
+@(ViewBag.Controller == "Aktivnost" ? "active": "")"
+                           asp-action="Index" asp-controller="Aktivnost">
+                            Aktivnost(JTP)
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="nav-link
+@(ViewBag.Controller == "VrstaAktivnosti" ? "active": "")"
+                           asp-action="Index" asp-controller="VrstaAktivnosti">
+                            Vrsta Aktivnosti
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link
+@(ViewBag.Controller == "VoditeljProjekta" ? "active": "")"
+                           asp-action="Index" asp-controller="VoditeljProjekta">
+                            Voditelj Projekta
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Student 37
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                        <a class="nav-link
+                            @(ViewBag.Controller == "Sudionik" ? "active": "")"
+                           asp-action="Index" asp-controller="Sudionik">
+                            Sudionici(STP)
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link
+                        @(ViewBag.Controller == "Uloga" ? "active": "")"
+                           asp-action="Index" asp-controller="Uloga">
+                            Uloge(JTP)
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="nav-link
+                            @(ViewBag.Controller == "PripadnostFirmi" ? "active": "")"
+                           asp-action="Index" asp-controller="PripadnostFirmi">
+                            Pripadnost Firmi
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link
+                        @(ViewBag.Controller == "VrstaUloge" ? "active": "")"
+                           asp-action="Index" asp-controller="VrstaUloge">
+                            Vrsta Uloge
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>

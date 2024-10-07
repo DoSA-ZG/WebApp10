@@ -1,0 +1,40 @@
+﻿@model RPPP_WebApp.Models.Aktivnost
+@{
+    ViewBag.Title = "Nova aktivnost";
+}
+
+<h2>Unos nove aktivnosti</h2>
+
+<form asp-action="Create2"  method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="mb-3">
+        <label asp-for="IdAktivnost" class="form-label"></label>
+        <input asp-for="IdAktivnost" class="form-control" />
+        <div class="form-text"><span asp-validation-for="IdAktivnost" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="OpisAktivnosti" class="form-label"></label>
+        <input asp-for="OpisAktivnosti" class="form-control" />
+        <div class="form-text"><span asp-validation-for="OpisAktivnosti" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="DatumPocetka" class="form-label"></label>
+        <input asp-for="DatumPocetka" class="form-control" />
+        <div class="form-text"><span asp-validation-for="DatumPocetka" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="DatumZavrsetka" class="form-label"></label>
+        <input asp-for="DatumZavrsetka" class="form-control" />
+        <div class="form-text"><span asp-validation-for="DatumZavrsetka" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdVrstaAktivnosti" class="form-label"></label>
+        <input asp-for="IdVrstaAktivnosti" class="form-control" />
+        <div class="form-text"><span asp-validation-for="IdVrstaAktivnosti" class="text-danger"></span></div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+    </div>
+</form>
+

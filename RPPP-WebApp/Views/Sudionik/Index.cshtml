@@ -1,0 +1,133 @@
+﻿@model RPPP_WebApp.ViewModels.SudioniciViewModel
+@{
+	ViewBag.Title = "Sudionici";
+}
+
+<h2>Popis sudionika</h2>
+
+<a asp-action="Create">Unos novog sudionika</a>
+
+<pager page-info="@Model.PagingInfo" page-action="Index" page-title="Unesite željenu stranicu"
+       class="float-end">
+</pager>
+
+@{
+
+    var pageInfo = Model.PagingInfo;
+
+}<div class="pagination">
+    <span>Stranica @pageInfo.CurrentPage od @pageInfo.TotalPages</span>    @{
+        if (pageInfo.CurrentPage > 1)
+        {
+            <a asp-action="Index" asp-route-page="1" asp-route-sort="@pageInfo.Sort" asp-route-ascending="@pageInfo.Ascending">&lt;&lt; Početak</a>            <a asp-action="Index" asp-route-page="@(pageInfo.CurrentPage - 1)" asp-route-sort="@pageInfo.Sort" asp-route-ascending="@pageInfo.Ascending">&lt; Prethodni</a>
+        }
+
+        for (var i = 1; i <= pageInfo.TotalPages; i++)
+        {
+            if (i == pageInfo.CurrentPage)
+            {
+                <span>[ @i ]</span>
+            }
+            else
+            {
+                <a asp-action="Index" asp-route-page="@i" asp-route-sort="@pageInfo.Sort" asp-route-ascending="@pageInfo.Ascending">[ @i ]</a>
+            }
+        }
+
+        if (pageInfo.CurrentPage < pageInfo.TotalPages)
+        {
+            <a asp-action="Index" asp-route-page="@(pageInfo.CurrentPage + 1)" asp-route-sort="@pageInfo.Sort" asp-route-ascending="@pageInfo.Ascending">Sljedeći &gt;</a>            <a asp-action="Index" asp-route-page="@pageInfo.TotalPages" asp-route-sort="@pageInfo.Sort" asp-route-ascending="@pageInfo.Ascending">Kraj &gt;&gt;</a>
+        }
+    }
+</div>
+
+<table class="table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                    IdSudionik
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="2" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 2 ? !Model.PagingInfo.Ascending : true)">
+                    Email
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="3" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 3 ? !Model.PagingInfo.Ascending : true)">
+                    Kontakt
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="4" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 4 ? !Model.PagingInfo.Ascending : true)">
+                    AdresaUreda
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="5" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 5 ? !Model.PagingInfo.Ascending : true)">
+                    Firma
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="6" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 6 ? !Model.PagingInfo.Ascending : true)">
+                    Uloga
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sudionik in Model.Sudionici)
+        {
+            <tr>
+                <td class="text-center">@sudionik.IdSudionik</td>
+                <td class="text-left">@sudionik.Email</td>
+                <td class="text-left">@sudionik.Kontakt</td>
+                <td class="text-left">@sudionik.AdresaUreda</td>
+                <td class="text-left">@sudionik.IdFirmaNavigation.NazivFirma</td>
+                <td class="text-left">
+                    @{
+                        var opisUloga = sudionik.Sudjelujus.Select(s => s.IdUlogaNavigation.OpisUloga);
+                        var opisUlogaString = string.Join(", ", opisUloga);
+                    }
+
+                    @opisUlogaString
+                </td>
+                <td class="btn-group">
+                    <a asp-action="STP"
+                       asp-route-id="@sudionik.IdSudionik"
+                       asp-route-page="@Model.PagingInfo.CurrentPage"
+                       asp-route-sort="@Model.PagingInfo.Sort"
+                       asp-route-ascending="@Model.PagingInfo.Ascending"
+                       class="btn btn-sm" title="STP"><i class="fas fa-edit">Detalji</i></a>
+
+                    <a asp-action="Edit"
+                       asp-route-id="@sudionik.IdSudionik"
+                       asp-route-page="@Model.PagingInfo.CurrentPage"
+                       asp-route-sort="@Model.PagingInfo.Sort"
+                       asp-route-ascending="@Model.PagingInfo.Ascending"
+                       class="btn btn-sm" title="Ažuriraj"><i class="fas fa-edit">Azuriraj</i></a>
+
+                    <form asp-action="Delete" method="post"
+                          asp-route-id="@sudionik.IdSudionik"
+                          asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-sort="@Model.PagingInfo.Sort"
+                          asp-route-ascending="@Model.PagingInfo.Ascending">
+                        <input type="hidden" name="IdUloga" value="@sudionik.IdSudionik" />
+                        <button type="submit" class="btn btn-sm btn-danger delete" title="Obriši"><i class="fas fa-trash-alt">Obrisi</i></button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-action="SudionikExcel" asp-controller="Report">Popis svih sudionika (Excel)</a>
+@section scripts {
+    <script src="~/js/pager.js" asp-append-version="true"></script>
+}

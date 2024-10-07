@@ -1,0 +1,51 @@
+﻿@model RPPP_WebApp.ViewModels.AktivnostiViewModel
+
+@{
+    ViewBag.Title = "Ažuriranje aktivnosti";
+}
+
+<form asp-route-id="@Model.IdAktivnost"
+      asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending"
+      method="post">
+    <input type="hidden" asp-for="IdAktivnost" />
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="OpisAktivnosti"></label>
+        <div><span asp-validation-for="OpisAktivnosti" class="text-danger"></span></div>
+        <input asp-for="OpisAktivnosti" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="DatumPocetka"></label>
+        <div><span asp-validation-for="DatumPocetka" class="text-danger"></span></div>
+        <input asp-for="DatumPocetka" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="DatumZavrsetka"></label>
+        <div><span asp-validation-for="DatumZavrsetka" class="text-danger"></span></div>
+        <input asp-for="DatumZavrsetka" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdVrstaAktivnosti" class="form-label"></label>
+        <select asp-for="IdVrstaAktivnosti" class="form-control" asp-items="@(new SelectList(ViewBag.VrstaAktivnosti, "Value", "Text"))"></select>
+        <div class="form-text"><span asp-validation-for="IdVrstaAktivnosti" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdPlanProjekta" class="form-label"></label>
+        <select asp-for="IdPlanProjekta" class="form-control" asp-items="@(new SelectList(ViewBag.PlanProjekta, "Value", "Text"))"></select>
+        <div class="form-text"><span asp-validation-for="IdPlanProjekta" class="text-danger"></span></div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Spremi</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">Odustani</a>
+    </div>
+</form>
+
+@section scripts {
+    <partial name="IncludeValidation" />
+}

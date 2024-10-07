@@ -1,0 +1,41 @@
+﻿@model RPPP_WebApp.ViewModels.VrstaTransakcijaViewModel
+@{
+    ViewBag.Title = "Vrste Transakcija";
+}
+
+<h2>Popis vrsta transakcija</h2>
+
+<pager page-info="@Model.PagingInfo" page-action="Index" page-title="Unesite željenu stranicu"
+       class="float-end">
+</pager>
+
+<table class="table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                    Id vrste transakcije
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="2" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 2 ? !Model.PagingInfo.Ascending : true)">
+                    Naziv vrste transakcije
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vrstaTransakcije in Model.VrstaTransakcijes)
+        {
+            <tr>
+                <td class="text-center">@vrstaTransakcije.IdVrstaTransakcije</td>
+                <td class="text-left">@vrstaTransakcije.NazivTransakcije</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+    <script src="~/js/pager.js" asp-append-version="true"></script>
+}

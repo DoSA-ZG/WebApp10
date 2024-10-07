@@ -1,0 +1,50 @@
+﻿@model RPPP_WebApp.Models.Zadaci
+@{
+    ViewBag.Title = "Novi zadatak";
+}
+
+<h2>Unos novog zadatka</h2>
+
+<form asp-action="Create2"  method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="mb-3">
+        <label asp-for="IdZadatak" class="form-label"></label>
+        <input asp-for="IdZadatak" class="form-control" />
+        <div class="form-text"><span asp-validation-for="IdZadatak" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Status" class="form-label"></label>
+        <input asp-for="Status" class="form-control" />
+        <div class="form-text"><span asp-validation-for="Status" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Aktivan" class="form-label"></label>
+        <input asp-for="Aktivan" class="form-control" />
+        <div class="form-text"><span asp-validation-for="Aktivan" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Opis" class="form-label"></label>
+        <input asp-for="Opis" class="form-control" />
+        <div class="form-text"><span asp-validation-for="Opis" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdZahtjev" class="form-label"></label>
+        <input asp-for="IdZahtjev" class="form-control"  />
+        <div class="form-text"><span asp-validation-for="IdZahtjev" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="NositeljZadatka" class="form-label"></label>
+        <input asp-for="NositeljZadatka" class="form-control" />
+        <div class="form-text"><span asp-validation-for="NositeljZadatka" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdPrioritetZadatka" class="form-label"></label>
+        <input asp-for="IdPrioritetZadatka" class="form-control" />
+        <div class="form-text"><span asp-validation-for="IdPrioritetZadatka" class="text-danger"></span></div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+    </div>
+</form>
+

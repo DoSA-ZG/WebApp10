@@ -1,0 +1,180 @@
+﻿
+@model RPPP_WebApp.ViewModels.RacuniProjektaViewModel
+
+@{
+
+    ViewBag.Title = "RacuniProjekta";
+
+}
+
+<h2>Popis racuna projekta</h2>
+
+<pager page-info="@Model.PagingInfo" page-action="Index" page-title="Unesite željenu stranicu"
+       class="float-end">
+
+</pager>
+
+<h3>RacuniProjekta</h3>
+
+<table class="table table-sm table-striped table-hover">
+
+    <thead>
+
+        <tr>
+
+            <th>
+
+                <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+
+                    Iban
+
+                </a>
+
+            </th>
+
+            <th>
+
+                NazivProjekta
+
+            </th>
+
+            <th>
+
+                StanjeRacuna
+
+            </th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+        
+
+        @foreach (var racun in Model.Racuni)
+
+        {
+
+            <tr>
+
+                <td class="text-center">@racun.Iban</td>
+
+                <td class="text-center">@racun.NazivProjekta</td>
+
+                <td class="text-center">@racun.StanjeRacuna</td>
+
+            </tr>
+
+        }
+
+    </tbody>
+
+</table>
+
+<h3>Transakcije</h3>
+
+<table class="table table-sm table-striped table-hover">
+
+    <thead>
+
+        <tr>
+
+            <th>
+
+                IbanPosiljatelja
+
+            </th>
+
+            <th>
+
+                IbanPrimatelja
+
+            </th>
+
+            <th>
+
+                OpisTransakcije
+
+            </th>
+
+            <th>
+
+                Iznos
+
+            </th>
+
+            <th>
+
+                IdVrstaTransakcije
+
+            </th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+        @foreach(var racun in Model.Racuni)
+        
+        {
+            
+        
+
+        @foreach (var transakcija in racun.IdTransakcijas)
+
+        {
+
+            <tr>
+
+                <td class="text-center">@transakcija.Ibanposiljatelja</td>
+
+                <td class="text-center">@transakcija.Ibanprimatelja</td>
+
+                <td class="text-center">@transakcija.OpisTransakcije</td>
+
+                <td class="text-center">@transakcija.Iznos</td>
+
+                   
+                    <td class="text-center">
+                        @{
+                            string vrstaTransakcijeTekst;
+                            switch (transakcija.IdVrstaTransakcije)
+                            {
+                                case 1:
+                                    vrstaTransakcijeTekst = "VanjskaUplata";
+                                    break;
+                                case 2:
+                                    vrstaTransakcijeTekst = "InternaUplata";
+                                    break;
+                                case 3:
+                                    vrstaTransakcijeTekst = "VanjskaIsplata";
+                                    break;
+                                case 4:
+                                    vrstaTransakcijeTekst = "InternaIsplata";
+                                    break;
+                                case 5:
+                                    vrstaTransakcijeTekst = "Honorari";
+                                    break;
+                                default:
+                                    vrstaTransakcijeTekst = "Nepoznato";
+                                    break;
+                            }
+                        }
+                        @vrstaTransakcijeTekst
+                    </td>
+
+                </tr>
+
+        }
+            <a asp-action="MDRacunExcel" asp-controller="Report" value="@racun.Iban" asp-route-id="@racun.Iban">Master-detail (Excel)</a>
+        }
+    </tbody>
+
+</table>
+
+@section scripts {
+
+    <script src="~/js/pager.js" asp-append-version="true"></script>
+
+}

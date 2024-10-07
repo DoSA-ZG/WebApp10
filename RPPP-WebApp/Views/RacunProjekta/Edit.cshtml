@@ -1,0 +1,203 @@
+﻿@model RPPP_WebApp.ViewModels.RacunProjektaViewModel
+
+@{
+    ViewBag.Title = "Ažuriranje računa projekta";
+}
+
+<form asp-route-id="@Model.Iban"
+      asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending"
+      method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="Iban">IBAN</label>
+        <div><span asp-validation-for="Iban" class="text-danger"></span></div>
+        <input asp-for="Iban" class="form-control" readonly />
+    </div>
+    <div class="mb-3">
+        <label asp-for="NazivProjekta" class="form-label"></label>
+        <input asp-for="NazivProjekta" class="form-control" />
+        <div class="form-text"><span asp-validation-for="NazivProjekta" class="text-danger"></span></div>
+    </div>
+    <div class="form-group">
+        <label asp-for="StanjeRacuna">Stanje računa</label>
+        <div><span asp-validation-for="StanjeRacuna" class="text-danger"></span></div>
+        <input asp-for="StanjeRacuna" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdProjekt" class="form-label"></label>
+        <input asp-for="IdProjekt" class="form-control" />
+        <div class="form-text"><span asp-validation-for="IdProjekt" class="text-danger"></span></div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Spremi</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">Odustani</a>
+    </div>
+</form>
+
+<div>
+    <table class="table table-sm table-striped table-hover" id="table-zadaci">
+        <thead>
+            <tr>
+                <th>IdTransakcije</th>
+                <th>IbanPosiljatelja</th>
+                <th>IbanPrimatelja</th>
+                <th>OpisTransakcije</th>
+                <th>Iznos</th>
+                <th>IdVrstaTransakcije</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transakcija in Model.IdTransakcijas)
+            {
+                <tr>
+                    <form asp-route-id="@transakcija.IdTransakcija" asp-controller="Transakcije" asp-action="Edit2"
+                          asp-route-page="@ViewBag.Page" asp-route-Iban="@Model.Iban"
+                          asp-route-sort="@ViewBag.Sort"
+                          asp-route-ascending="@ViewBag.Ascending"
+                          method="post">
+                        <div asp-validation-summary="All"></div>
+                    <td>
+                        <div class="form-group">
+                            <label asp-for="IdTransakcija"></label>
+                            <div><span asp-validation-for="IdTransakcija" class="text-danger"></span></div>
+                            <input asp-for="IdTransakcija" class="form-control" value="@transakcija.IdTransakcija" readonly />
+                        </div>
+
+                    </td>
+                    <td>
+                         <div class="form-group">
+
+                            <label asp-for="Ibanposiljatelja"></label>
+
+                            <div><span asp-validation-for="Ibanposiljatelja" class="text-danger"></span></div>
+
+                            <input asp-for="Ibanposiljatelja" class="form-control" value="@transakcija.Ibanposiljatelja" />
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+
+                            <label asp-for="Ibanprimatelja"></label>
+
+                            <div><span asp-validation-for="Ibanprimatelja" class="text-danger"></span></div>
+
+                            <input asp-for="Ibanprimatelja" class="form-control" value="@transakcija.Ibanprimatelja" />
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+
+                            <label asp-for="OpisTransakcije"></label>
+
+                            <div><span asp-validation-for="OpisTransakcije" class="text-danger"></span></div>
+
+                            <input asp-for="OpisTransakcije" class="form-control" value="@transakcija.OpisTransakcije" />
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+
+                            <label asp-for="Iznos"></label>
+
+                            <div><span asp-validation-for="Iznos" class="text-danger"></span></div>
+
+                            <input asp-for="Iznos" class="form-control" value="@transakcija.Iznos" />
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+
+                            <label asp-for="IdVrstaTransakcije" class="control-label"></label>
+
+                            <input asp-for="IdVrstaTransakcije" asp-items="ViewBag.vrstaTransakcije" class="form-control" value="@transakcija.IdVrstaTransakcije" />
+
+                            <inpu asp-validation-for="IdVrstaTransakcije" class="text-danger"></inpu>
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="text-center">
+                            <button class="btn btn-primary" type="submit">Spremi</button>
+                        </div>
+                    </td>
+                    </form>
+                    <td>
+                        <form asp-action="Delete2" method="post" asp-controller="Transakcije" asp-route-Iban="@Model.Iban"
+                              asp-route-id="@transakcija.IdTransakcija">
+                            <input type="hidden" name="IdTransakcija" value="@transakcija.IdTransakcija" />
+                            <button type="submit" class="btn btn-sm btn-danger delete" title="Obriši"><i class="fas fa-trash-alt">Obrisi</i></button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <form asp-action="Create2" method="post" asp-controller="Transakcije" asp-route-Iban="@Model.Iban">
+                <td>
+                    <div class="mb-3">
+                        <label asp-for="IdTransakcija" class="form-label"></label>
+                        <input asp-for="IdTransakcija" class="form-control" value="" />
+                        <div class="form-text"><span asp-validation-for="IdTransakcija" class="text-danger"></span></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="mb-3">
+                        <label asp-for="Ibanposiljatelja" class="form-label"></label>
+                        <input asp-for="Ibanposiljatelja" class="form-control" value="" />
+                        <div class="form-text"><span asp-validation-for="Ibanposiljatelja" class="text-danger"></span></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="mb-3">
+                        <label asp-for="Ibanprimatelja" class="form-label"></label>
+                        <input asp-for="Ibanprimatelja" class="form-control" value="" />
+                        <div class="form-text"><span asp-validation-for="Ibanprimatelja" class="text-danger"></span></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="mb-3">
+                        <label asp-for="OpisTransakcije" class="form-label"></label>
+                        <input asp-for="OpisTransakcije" class="form-control" value="" />
+                        <div class="form-text"><span asp-validation-for="OpisTransakcije" class="text-danger"></span></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="mb-3">
+                        <label asp-for="Iznos" class="form-label"></label>
+                        <input asp-for="Iznos" class="form-control" value="" />
+                        <div class="form-text"><span asp-validation-for="Iznos" class="text-danger"></span></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="mb-3">
+                        <label asp-for="IdVrstaTransakcije" class="form-label"></label>
+                        <input asp-for="IdVrstaTransakcije" class="form-control" value="" />
+                        <div class="form-text"><span asp-validation-for="IdVrstaTransakcije" class="text-danger"></span></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="text-center">
+                        <button class="btn btn-primary" type="submit">Dodaj</button>
+                    </div>
+                </td>
+                </form>
+            </tr>
+          
+
+        </tbody>
+    </table>
+</div>
+
+@section scripts {
+    <partial name="IncludeValidation" />
+}

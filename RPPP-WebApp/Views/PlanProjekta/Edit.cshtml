@@ -1,0 +1,201 @@
+@model RPPP_WebApp.ViewModels.PlanProjekataViewModel
+
+@{
+    ViewBag.Title = "Ažuriranje plana projekta";
+}
+
+<form asp-route-id="@Model.IdPlanProjekta"
+      asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending"
+      method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="PlaniraniPocetakZadatka"></label>
+        <div><span asp-validation-for="PlaniraniPocetakZadatka" class="text-danger"></span></div>
+        <input asp-for="PlaniraniPocetakZadatka" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="StvarniPocetakZadatka"></label>
+        <div><span asp-validation-for="StvarniPocetakZadatka" class="text-danger"></span></div>
+        <input asp-for="StvarniPocetakZadatka" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="PlaniraniZavrsetakZadatka"></label>
+        <div><span asp-validation-for="PlaniraniZavrsetakZadatka" class="text-danger"></span></div>
+        <input asp-for="PlaniraniZavrsetakZadatka" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="StvarniZavrsetakZadatka"></label>
+        <div><span asp-validation-for="StvarniZavrsetakZadatka" class="text-danger"></span></div>
+        <input asp-for="StvarniZavrsetakZadatka" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdProjekt" class="form-label"></label>
+        <input asp-for="IdProjekt" class="form-control" />
+        <div class="form-text"><span asp-validation-for="IdProjekt" class="text-danger"></span></div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdVoditelj" class="form-label"></label>
+        <input asp-for="IdVoditelj" class="form-control" />
+        <div class="form-text"><span asp-validation-for="IdVoditelj" class="text-danger"></span></div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Spremi</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">Odustani</a>
+    </div>
+</form>
+
+<div>
+<table class="table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+
+                IdAktivnost
+
+            </th>
+            <th>
+
+                OpisAktivnosti
+
+            </th>
+            <th>
+
+                DatumPocetka
+
+            </th>
+            <th>
+
+                DatumZavrsetka
+
+            </th>
+            <th>
+
+                IdVrstaAktivnosti
+
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aktivnost in Model.IdAktivnosts)
+        {
+            <tr>
+                <form asp-route-id="@aktivnost.IdAktivnost"
+                      asp-route-idPlanProjekta="@Model.IdPlanProjekta"
+                      asp-route-page="@ViewBag.Page"
+                      asp-route-sort="@ViewBag.Sort"
+                      asp-route-ascending="@ViewBag.Ascending"
+                      asp-action="Edit2"
+                      asp-controller="Aktivnost"
+                      method="post">
+                    <div asp-validation-summary="All"></div>
+                <td>
+                    <div class="form-group">
+                        <label asp-for="IdAktivnost"></label>
+                        <div><span asp-validation-for="IdAktivnost" class="text-danger"></span></div>
+                        <input asp-for="IdAktivnost" class="form-control" value="@aktivnost.IdAktivnost" readonly />
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label asp-for="OpisAktivnosti"></label>
+                        <div><span asp-validation-for="OpisAktivnosti" class="text-danger"></span></div>
+                        <input asp-for="OpisAktivnosti" class="form-control" value="@aktivnost.OpisAktivnosti" />
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label asp-for="DatumPocetka"></label>
+                        <div><span asp-validation-for="DatumPocetka" class="text-danger"></span></div>
+                        <input asp-for="DatumPocetka" class="form-control" value="@aktivnost.DatumPocetka" type="datetime" />
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label asp-for="DatumZavrsetka"></label>
+                        <div><span asp-validation-for="DatumZavrsetka" class="text-danger"></span></div>
+                        <input asp-for="DatumZavrsetka" class="form-control" value="@aktivnost.DatumZavrsetka" type="datetime" />
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label asp-for="IdVrstaAktivnosti"></label>
+                        <div><span asp-validation-for="IdVrstaAktivnosti" class="text-danger"></span></div>
+                        <input asp-for="IdVrstaAktivnosti" class="form-control" value="@aktivnost.IdVrstaAktivnosti" />
+                    </div>
+                </td>
+                <td>
+                    <div class="text-center">
+                        <button class="btn btn-primary" type="submit">Spremi</button>
+                    </div>
+                </td>
+                </form>
+                <td>
+                <form asp-action="Delete2" method="post" asp-controller="Aktivnost"
+                      asp-route-id="@aktivnost.IdAktivnost"
+                      asp-route-idPlanProjekta="@Model.IdPlanProjekta">
+                    <input type="hidden" name="IdAktivnost" value="@aktivnost.IdAktivnost" />
+                    <button type="submit" class="btn btn-sm btn-danger delete" title="Obriši"><i class="fas fa-trash-alt">Obrisi</i></button>
+                </form>
+                </td>     
+            </tr>
+        }
+
+        <tr>
+            <form asp-action="Create2" method="post" asp-controller="Aktivnost"
+                  asp-route-idPlanProjekta="@Model.IdPlanProjekta">
+            <td>
+                <div class="mb-3">
+                    <label asp-for="IdAktivnost" class="form-label"></label>
+                    <input asp-for="IdAktivnost" class="form-control" />
+                    <div class="form-text"><span asp-validation-for="IdAktivnost" class="text-danger"></span></div>
+                </div>
+            </td>
+            <td>
+                <div class="mb-3">
+                    <label asp-for="OpisAktivnosti" class="form-label"></label>
+                    <input asp-for="OpisAktivnosti" class="form-control" />
+                    <div class="form-text"><span asp-validation-for="OpisAktivnosti" class="text-danger"></span></div>
+                </div>
+            </td>
+            <td>
+                <div class="mb-3">
+                    <label asp-for="DatumPocetka" class="form-label"></label>
+                    <input asp-for="DatumPocetka" class="form-control" />
+                    <div class="form-text"><span asp-validation-for="DatumPocetka" class="text-danger"></span></div>
+                </div>
+            </td>
+            <td>
+                <div class="mb-3">
+                    <label asp-for="DatumZavrsetka" class="form-label"></label>
+                    <input asp-for="DatumZavrsetka" class="form-control" />
+                    <div class="form-text"><span asp-validation-for="DatumZavrsetka" class="text-danger"></span></div>
+                </div>
+            </td>
+            <td>
+                <div class="mb-3">
+                    <label asp-for="IdVrstaAktivnosti" class="form-label"></label>
+                    <input asp-for="IdVrstaAktivnosti" class="form-control" />
+                    <div class="form-text"><span asp-validation-for="IdVrstaAktivnosti" class="text-danger"></span></div>
+                </div>
+            </td>
+            <td>
+                <div class="text-center">
+                    <button class="btn btn-primary" type="submit">Dodaj</button>
+                </div>
+            </td>
+            </form>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+@section scripts {
+    <partial name="IncludeValidation" />
+}

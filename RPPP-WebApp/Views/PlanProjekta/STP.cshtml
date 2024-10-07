@@ -1,0 +1,120 @@
+﻿@model RPPP_WebApp.ViewModels.PlanProjektaViewModel
+
+@{
+    ViewBag.Title = "Planovi projekata";
+}
+
+<h2>Popis planova projekata</h2>
+
+<pager page-info="@Model.PagingInfo" page-action="Index" page-title="Unesite željenu stranicu"
+       class="float-end">
+</pager>
+
+<h3>Planovi projekta</h3>
+<table class="table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                    IdPlanProjekta
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="2" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 2 ? !Model.PagingInfo.Ascending : true)">
+                    PlaniraniPocetakZadatka
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="3" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 3 ? !Model.PagingInfo.Ascending : true)">
+                    StvarniPocetakZadatka
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="4" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 4 ? !Model.PagingInfo.Ascending : true)">
+                    PlaniraniZavrsetakZadatka
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="5" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 5 ? !Model.PagingInfo.Ascending : true)">
+                    StvarniZavrsetakZadatka
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="6" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 6 ? !Model.PagingInfo.Ascending : true)">
+                    IdProjekt
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="7" asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-ascending="@(Model.PagingInfo.Sort == 7 ? !Model.PagingInfo.Ascending : true)">
+                    IdVoditelj
+                </a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var planProjekta in Model.PlanoviProjekta)
+        {
+            <tr>
+                <td class="text-center">@planProjekta.IdPlanProjekta</td>
+                <td class="text-center">@planProjekta.PlaniraniPocetakZadatka</td>
+                <td class="text-center">@planProjekta.StvarniPocetakZadatka</td>
+                <td class="text-center">@planProjekta.PlaniraniZavrsetakZadatka</td>
+                <td class="text-center">@planProjekta.StvarniZavrsetakZadatka</td>
+                <td class="text-center">@planProjekta.IdProjekt</td>
+                <td class="text-center">@planProjekta.IdVoditelj</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Aktivnosti</h3>
+<table class="table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                IdAktivnost
+            </th>
+            <th>
+                OpisAktivnosti
+            </th>
+            <th>
+                DatumPocetka
+            </th>
+            <th>
+                DatumZavrsetka
+            </th>
+            <th>
+                IdVrstaAktivnosti
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var planProjekta in Model.PlanoviProjekta)
+        {
+            @foreach (var aktivnost in planProjekta.IdAktivnosts)
+            {
+                <tr>
+                    <td class="text-center">@aktivnost.IdAktivnost</td>
+                    <td class="text-center">@aktivnost.OpisAktivnosti</td>
+                    <td class="text-center">@aktivnost.DatumPocetka</td>
+                    <td class="text-center">@aktivnost.DatumZavrsetka</td>
+                    <td class="text-center">@aktivnost.IdVrstaAktivnosti</td>
+                </tr>
+            }
+            <a asp-action="MDPlanProjektaExcel" asp-controller="Report" value="@planProjekta.IdPlanProjekta" asp-route-id="@planProjekta.IdPlanProjekta">Master-detail (Excel)</a>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+    <script src="~/js/pager.js" asp-append-version="true"></script>
+}
+
+

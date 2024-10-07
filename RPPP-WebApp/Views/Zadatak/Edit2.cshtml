@@ -1,0 +1,55 @@
+﻿@model RPPP_WebApp.Models.Zadaci
+
+@{
+    ViewBag.Title = "Ažuriranje zadatka";
+}
+
+<form asp-route-id="@Model.IdZadatak"
+      asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending" 
+      method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="Status"></label>
+        <div><span asp-validation-for="Status" class="text-danger"></span></div>
+        <input asp-for="Status" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Aktivan"></label>
+        <div><span asp-validation-for="Aktivan" class="text-danger"></span></div>
+        <input asp-for="Aktivan" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Opis"></label>
+        <div><span asp-validation-for="Opis" class="text-danger"></span></div>
+        <textarea asp-for="Opis" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdZahtjev"></label>
+        <div><span asp-validation-for="IdZahtjev" class="text-danger"></span></div>
+        <input asp-for="IdZahtjev" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="NositeljZadatka"></label>
+        <div><span asp-validation-for="NositeljZadatka" class="text-danger"></span></div>
+        <input asp-for="NositeljZadatka" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="IdPrioritetZadatka"></label>
+        <div><span asp-validation-for="IdPrioritetZadatka" class="text-danger"></span></div>
+        <input asp-for="IdPrioritetZadatka" class="form-control" />
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Spremi</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">Odustani</a>
+    </div>
+</form>
+
+@section scripts {
+    <partial name="IncludeValidation" />
+}

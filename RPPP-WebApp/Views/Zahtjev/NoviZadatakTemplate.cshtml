@@ -1,0 +1,33 @@
+﻿<table id="template" style="visibility:hidden">
+    <tr>
+        <td class="text-left col-sm-4">
+            <input type="hidden" name="Zadaci.Index" value="--id--" />
+            <input name="Zadaci[--id--].IdZadatak" value="--id--" />
+        </td>
+        <td class="text-left col-sm-4">
+            <input name="Zadaci[--id--].Status" value="--status--" />
+        </td>
+        <td class="text-center col-sm-1">
+            <input name="Zadaci[--id--].Aktivan" class="form-control" value="--aktivan--" />
+        </td>
+        <td class="text-center col-sm-1">
+            <input name="Zadaci[--id--].Opis" class="form-control" value="--opis--" />
+        </td>
+        <td class="text-right col-sm-3">
+            <input name="Zadaci[--id--].IdZahtjev" value="--IdZahtjev--" />
+        </td>
+        <td class="text-right col-sm-3">
+            <input name="Zadaci[--id--].NositeljZadatka" value="--nositelj--" />
+        </td>
+        <td class="text-right col-sm-3">
+            <input name="Zadaci[--id--].IdPrioritetZadatka" value="--IdPrioritet--" />
+        </td>
+        <td>
+            <form asp-action="Delete2" method="post" asp-controller="Zadatak"
+                  asp-route-id="--id--">
+                <input type="hidden" name="IdZadatak" value=" --id--" />
+                <button type="submit" class="btn btn-sm btn-danger delete" title="Obriši"><i class="fas fa-trash-alt">Obrisi</i></button>
+            </form>
+        </td>
+    </tr>
+</table>
